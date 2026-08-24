@@ -1,0 +1,21 @@
+[Unit]
+Description=Libseat Django (gunicorn)
+After=network.target postgresql.service redis-server.service
+
+[Service]
+Type=notify
+User=www-data
+Group=www-data
+WorkingDirectory=/opt/phagendra/backend
+EnvironmentFile=/opt/phagendra/backend/.env
+ExecStart=/opt/phagendra/backend/.venv/bin/gunicorn -c config/gunicorn.conf.py config.wsgi
+ExecReload=/bin/kill -s HUP $MAINPID
+KillMode=mixed
+TimeoutStopSec=5
+Restart=always
+RestartSec=3
+# Keep memory growth bounded across restarts.
+RuntimeMaxSec=604800
+
+[Install]
+WantedBy=multi-user.target

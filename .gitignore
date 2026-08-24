@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+db.sqlite3
+*.sqlite3
+*.bak
+.staticfiles
+mediafiles/
+media/
+
+# Env / secrets — ignore every .env* everywhere (backend/.env,
+# backend/.env.pythonanywhere, root .env.local, …). Only *.example files
+# are tracked so deployment templates stay in the repo.
+.env
+.env.*
+!*.example
+!**/.env.example
+!**/.*.env.example
+
+# Node
+node_modules/
+.next/
+out/
+dist/
+build/
+*.tsbuildinfo
+npm-debug.log*
+yarn-error.log*
+
+# Misc
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log
+coverage/

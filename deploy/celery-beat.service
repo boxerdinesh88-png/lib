@@ -1,0 +1,17 @@
+[Unit]
+Description=Libseat Celery beat scheduler
+After=network.target redis-server.service
+Requires=redis-server.service
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/opt/phagendra/backend
+EnvironmentFile=/opt/phagendra/backend/.env
+ExecStart=/opt/phagendra/backend/.venv/bin/celery -A config beat --loglevel=info
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

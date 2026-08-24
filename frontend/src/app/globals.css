@@ -1,0 +1,216 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-sans: var(--font-inter), Inter, system-ui, sans-serif;
+  --font-display: var(--font-space-grotesk), "Space Grotesk", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Anchored sections stop below the fixed navbar instead of under it. */
+[id] {
+  scroll-margin-top: 5rem;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: #f8fafc;
+  color: #0f172a;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+  /* Guard against any stray fixed-width element causing horizontal scroll on phones */
+  overflow-x: clip;
+  /* Improve touch interaction on mobile */
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  /* Safe area insets for modern phones with notches */
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+.dark body {
+  background: #020617;
+  color: #f1f5f9;
+}
+
+@layer components {
+  .glass {
+    @apply bg-white/65 dark:bg-secondary-900/55 backdrop-blur-xl border border-white/40 dark:border-white/10 shadow-glass;
+  }
+
+  .glass-strong {
+    @apply bg-white/80 dark:bg-secondary-900/80 backdrop-blur-2xl border border-white/50 dark:border-white/10 shadow-glass-lg;
+  }
+
+  .card {
+    @apply rounded-3xl border border-slate-200/70 dark:border-white/10 bg-white/80 dark:bg-secondary-900/50 backdrop-blur-xl shadow-soft dark:shadow-none;
+  }
+
+  .input-base {
+    /* text-base on phones (>=16px) prevents iOS Safari auto-zooming into the
+       field when it gains focus; desktop keeps the compact 14px size. */
+    @apply w-full rounded-2xl border border-slate-200 bg-white/70 px-4 py-3 text-base text-secondary-900 placeholder:text-slate-400 outline-none transition-all focus:border-primary-500 focus:ring-4 focus:ring-primary-500/10 dark:border-white/10 dark:bg-white/5 dark:text-slate-50 sm:text-sm;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl text-sm font-medium transition-all duration-200 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none focus-visible:outline-none focus-visible:ring-4;
+    /* Improve touch targets on mobile */
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .btn-primary {
+    @apply btn bg-primary-600 text-white hover:bg-primary-700 shadow-glow;
+  }
+
+  .btn-secondary {
+    @apply btn bg-secondary-900 text-white hover:bg-secondary-800 dark:bg-white dark:text-secondary-900 dark:hover:bg-slate-100;
+  }
+
+  .btn-accent {
+    @apply btn bg-accent text-secondary-950 hover:bg-accent-400;
+  }
+
+  .btn-ghost {
+    @apply btn border border-slate-200 bg-white/60 text-secondary-900 hover:bg-white dark:border-white/15 dark:bg-white/5 dark:text-slate-100 dark:hover:bg-white/10;
+  }
+
+  .btn-danger {
+    @apply btn bg-rose-600 text-white hover:bg-rose-700;
+  }
+
+  .section-pad {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .h-display {
+    @apply font-display tracking-tight text-secondary-900 dark:text-white;
+  }
+
+  .skeleton {
+    @apply relative overflow-hidden bg-slate-200/70 dark:bg-white/5;
+  }
+  .skeleton::after {
+    content: "";
+    @apply absolute inset-0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.6),
+      transparent
+    );
+    animation: shimmer 1.6s linear infinite;
+    background-size: 468px 100%;
+  }
+}
+
+/* ---- scrollbar ---- */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  @apply rounded-full bg-slate-300 dark:bg-white/10;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ---- gradient text ---- */
+.text-gradient {
+  @apply bg-gradient-to-r from-primary-600 via-accent to-primary-600 bg-clip-text text-transparent animate-gradient;
+  background-size: 200% 200%;
+}
+
+/* ---- glass grid background ---- */
+.bg-grid {
+  background-image: linear-gradient(rgba(37, 99, 235, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(37, 99, 235, 0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* ---- map ---- */
+.leaflet-container {
+  font-family: var(--font-sans);
+  border-radius: 1.5rem;
+}
+
+/* ---- review marquee ---- */
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@layer utilities {
+  .marquee-track {
+    animation: marquee-scroll var(--marquee-duration, 48s) linear infinite;
+    will-change: transform;
+  }
+  /* Second review row drifts the opposite way; hovering pauses both rows. */
+  .marquee-track-reverse {
+    animation-direction: reverse;
+  }
+  .marquee-wrap:hover .marquee-track,
+  .marquee-track:hover {
+    animation-play-state: paused;
+  }
+}
+
+/* ---- reduced motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---- Mobile-specific improvements ---- */
+@media (max-width: 640px) {
+  /* Better text rendering on mobile */
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Improve focus states for accessibility */
+  *:focus-visible {
+    outline: 2px solid #2563EB;
+    outline-offset: 2px;
+  }
+  
+  /* Better tap targets for touch */
+  button, a, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Disable zoom on form focus (iOS Safari) */
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+  
+  /* Smooth scrolling for better mobile experience */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Prevent horizontal scroll on mobile */
+  body {
+    overscroll-behavior-x: none;
+  }
+}

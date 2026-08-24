@@ -1,0 +1,43 @@
+{
+  "name": "libseat-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Phahendra Babu Library — Premium 3D Library Seat Booking Platform",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "build:static": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@react-three/drei": "^10.0.0",
+    "@react-three/fiber": "^9.0.0",
+    "axios": "^1.7.9",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.0.0",
+    "lucide-react": "^0.469.0",
+    "next": "^15.1.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "recharts": "^2.15.0",
+    "tailwind-merge": "^2.6.0",
+    "three": "^0.171.0",
+    "zustand": "^5.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@types/three": "^0.171.0",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^15.5.22",
+    "postcss": "^8.4.49",
+    "sharp": "^0.35.3",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.2"
+  }
+}
